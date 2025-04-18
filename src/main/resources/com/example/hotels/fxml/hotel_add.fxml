@@ -10,58 +10,104 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="750.0" prefWidth="850.0" stylesheets="@../style/hotel_add.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hotels.controllers.HotelAdd">
    <children>
-      <Label layoutX="31.0" layoutY="123.0" text="Name :" />
-      <Label layoutX="21.0" layoutY="285.0" text="Full Address :" />
       <Label styleClass="title_pane" text="Add Accomodation">
          <font>
             <Font size="22.0" />
          </font></Label>
-      <Label layoutX="27.0" layoutY="341.0" text="Type :" />
-      <Label layoutX="29.0" layoutY="406.0" text="Amenities :" />
-      <Label layoutX="533.0" layoutY="229.0" text="Rating :" />
-      <Label layoutX="29.0" layoutY="176.0" text="Country :" />
-      <Label layoutX="36.0" layoutY="230.0" text="City :" />
-      <Label layoutX="28.0" layoutY="511.0" text="Description :" />
-      <Label layoutX="511.0" layoutY="284.0" text="Principal photo :" />
-      <Label layoutX="511.0" layoutY="341.0" text="Detailed Album :" />
-      <Label layoutX="514.0" layoutY="176.0" text="Price Per Night :" />
-      <Label layoutX="515.0" layoutY="120.0" text="Guest Capacity :" />
-      <ComboBox fx:id="typeCombo" layoutX="118.0" layoutY="336.0" prefWidth="150.0" promptText="Select a type" />
-      <TextField fx:id="namefield" layoutX="119.0" layoutY="120.0" />
-      <TextField fx:id="countryfield" layoutX="119.0" layoutY="172.0" />
-      <TextArea fx:id="descriptionfield" layoutX="28.0" layoutY="542.0" prefHeight="178.0" prefWidth="560.0" />
-      <TextField fx:id="cityfield" layoutX="120.0" layoutY="225.0" />
-      <TextField fx:id="addressfield" layoutX="119.0" layoutY="280.0" prefHeight="26.0" prefWidth="150.0" />
       <HBox fx:id="starBox" layoutX="634.0" layoutY="221.0" prefHeight="33.0" prefWidth="200.0" />
-      <Button fx:id="choosephoto" layoutX="643.0" layoutY="281.0" mnemonicParsing="false" onAction="#handleChooseFile" prefHeight="26.0" prefWidth="132.0" text="Choose File" />
-      <Button fx:id="choosealbum" layoutX="643.0" layoutY="337.0" mnemonicParsing="false" onAction="#handleChooseFile" prefHeight="26.0" prefWidth="132.0" text="Choose File" />
       <ImageView fitHeight="60.0" fitWidth="67.0" layoutX="-4.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/accicon.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="194.0" fitWidth="180.0" layoutX="644.0" layoutY="501.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="194.0" fitWidth="180.0" layoutX="662.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/acc.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnAdd" layoutX="706.0" layoutY="707.0" mnemonicParsing="false" onAction="#handleSubmit" text="Submit" />
-      <AnchorPane id="anchop" fx:id="anchoption" layoutX="38.0" layoutY="435.0" prefHeight="60.0" prefWidth="663.0">
+      <AnchorPane id="anchop" fx:id="anchoption" layoutX="50.0" layoutY="375.0" prefHeight="106.0" prefWidth="578.0" styleClass="grid_info">
          <children>
-            <CheckBox fx:id="wifi" layoutX="25.0" layoutY="20.0" mnemonicParsing="false" text="Wi-Fi" />
-            <CheckBox fx:id="pool" layoutX="121.0" layoutY="21.0" mnemonicParsing="false" text="Pool" />
-            <CheckBox fx:id="air" layoutX="211.0" layoutY="21.0" mnemonicParsing="false" text="Air Conditioning" />
-            <CheckBox fx:id="parking" layoutX="389.0" layoutY="21.0" mnemonicParsing="false" text="Parking" />
-            <CheckBox fx:id="meals" layoutX="507.0" layoutY="22.0" mnemonicParsing="false" text="All Meals Included" />
+            <HBox layoutX="14.0" layoutY="33.0" prefHeight="33.0" prefWidth="548.0">
+               <children>
+                  <CheckBox fx:id="wifi" mnemonicParsing="false" text="Wi-Fi" />
+                  <CheckBox fx:id="pool" mnemonicParsing="false" text="Pool" />
+                  <CheckBox fx:id="air" mnemonicParsing="false" text="Air Conditioning" />
+                  <CheckBox fx:id="parking" mnemonicParsing="false" text="Parking" />
+                  <CheckBox fx:id="meals" mnemonicParsing="false" prefHeight="22.0" prefWidth="143.0" text="All Meals Included" />
+               </children>
+            </HBox>
+            <Label layoutX="14.0" layoutY="6.0" text="Amenities :" />
          </children>
       </AnchorPane>
-      <Button fx:id="btnreturn" layoutX="775.0" layoutY="707.0" mnemonicParsing="false" onAction="#switch_admin" text="return" />
-      <Spinner fx:id="capacityspinner" editable="true" layoutX="640.0" layoutY="119.0" prefHeight="26.0" prefWidth="132.0" />
-      <TextField fx:id="pricefield" layoutX="643.0" layoutY="172.0" prefHeight="26.0" prefWidth="132.0" />
+      <GridPane layoutX="285.0" layoutY="108.0" prefHeight="250.0" prefWidth="320.0" styleClass="grid_info" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="100.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Name :" />
+            <TextField fx:id="namefield" GridPane.columnIndex="1" />
+            <Label text="Country :" GridPane.rowIndex="1" />
+            <TextField fx:id="countryfield" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="City :" GridPane.rowIndex="2" />
+            <TextField fx:id="cityfield" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Full Address :" GridPane.rowIndex="3" />
+            <TextField fx:id="addressfield" prefHeight="26.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Type :" GridPane.rowIndex="4" />
+            <ComboBox fx:id="typeCombo" prefWidth="150.0" promptText="Select a type" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         </children>
+      </GridPane>
+      <GridPane layoutX="460.0" layoutY="109.0" prefHeight="250.0" prefWidth="320.0" styleClass="grid_info" AnchorPane.topAnchor="100.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Guest Capacity :" />
+            <Spinner fx:id="capacityspinner" editable="true" prefHeight="26.0" prefWidth="132.0" GridPane.columnIndex="1" />
+            <TextField fx:id="pricefield" prefHeight="26.0" prefWidth="132.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Price Per Night :" GridPane.rowIndex="1" />
+            <Label text="Rating :" GridPane.rowIndex="2" />
+            <Label text="Principal photo :" GridPane.rowIndex="3" />
+            <Label text="Detailed Album :" GridPane.rowIndex="4" />
+            <Button fx:id="choosephoto" mnemonicParsing="false" onAction="#handleChooseFile" prefHeight="26.0" prefWidth="132.0" text="Choose File" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button fx:id="choosealbum" mnemonicParsing="false" onAction="#handleChooseFile" prefHeight="26.0" prefWidth="132.0" text="Choose File" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         </children>
+      </GridPane>
+      <VBox layoutX="668.0" layoutY="547.0" prefHeight="160.0" prefWidth="132.0" styleClass="reserv_zone">
+         <children>
+            <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#handleSubmit" prefHeight="36.0" prefWidth="107.0" text="Submit" />
+            <Button fx:id="btnreturn" mnemonicParsing="false" onAction="#switch_admin" prefHeight="37.0" prefWidth="110.0" text="return" />
+         </children>
+      </VBox>
+      <VBox layoutX="50.0" layoutY="505.0" prefHeight="200.0" prefWidth="573.0" styleClass="reserv_zone">
+         <children>
+            <Label text="Description :" />
+            <TextArea fx:id="descriptionfield" prefHeight="173.0" prefWidth="592.0" />
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
