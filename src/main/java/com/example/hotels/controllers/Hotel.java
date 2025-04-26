@@ -131,7 +131,7 @@ public class Hotel {
         card.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/hotel_info.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/hotel_info_agence.fxml"));
                     Parent root = loader.load();
 
                     HotelInfo controller = loader.getController();

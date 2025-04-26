@@ -13,7 +13,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxml/hotel_admin.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxml/clien_acc.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Hotel Reservation ");
         stage.setScene(scene);

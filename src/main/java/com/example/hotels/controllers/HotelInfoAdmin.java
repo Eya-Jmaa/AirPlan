@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 
-public class HotelInfo {
+public class HotelInfoAdmin {
     @FXML private Label nameinfo;
     @FXML private Label typeinfo;
     @FXML private Label cityinfo;
@@ -39,26 +39,11 @@ public class HotelInfo {
 
     @FXML
     private void initialize() {
-        returnButton.setOnAction(event -> retournerAccueil());
+        returnButton.setOnAction(event -> retournerAdmin());
     }
 
 
-    public void retournerAccueil() {
-        try {
-            // Charger la vue accommodation
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/accommodation.fxml"));
-            Parent root = loader.load();
 
-            // Obtenir la scène depuis le bouton
-            Stage stage = (Stage) returnButton.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-
-            // Optionnel : ajouter des styles, animations, etc.
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
 
@@ -66,25 +51,6 @@ public class HotelInfo {
         try {
             // Charger la vue accommodation
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/accadmin.fxml"));
-            Parent root = loader.load();
-
-            // Obtenir la scène depuis le bouton
-            Stage stage = (Stage) returnButton.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-
-            // Optionnel : ajouter des styles, animations, etc.
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-    public void retournerClient() {
-        try {
-            // Charger la vue accommodation
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/clien_acc.fxml"));
             Parent root = loader.load();
 
             // Obtenir la scène depuis le bouton

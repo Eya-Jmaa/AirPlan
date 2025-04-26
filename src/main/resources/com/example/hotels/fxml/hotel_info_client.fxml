@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+
+<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="flights_view" stylesheets="@../style/hotelinfo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hotels.controllers.HotelInfoClient">
+   <children>
+      <ImageView fx:id="photoinfo" fitHeight="206.0" fitWidth="266.0" layoutX="23.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/hebergementicon.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="319.0" layoutY="58.0" text="Name :" />
+      <Label layoutX="324.0" layoutY="106.0" text="City :" />
+      <Label layoutX="314.0" layoutY="155.0" text="Country :" />
+      <Label layoutX="322.0" layoutY="200.0" text="Type :" />
+      <Label layoutX="42.0" layoutY="249.0" text="Options :" />
+      <Label layoutX="606.0" layoutY="58.0" text="Full Adress :" />
+      <Label layoutX="609.0" layoutY="106.0" text="Capacity :" />
+      <Label layoutX="618.0" layoutY="155.0" text="Rating :" />
+      <Label layoutX="40.0" layoutY="286.0" text="Description :" />
+      <Label layoutX="47.0" layoutY="332.0" text="Album :" />
+      <Label fx:id="nameinfo" layoutX="430.0" layoutY="58.0" text="Label" />
+      <Label fx:id="cityinfo" layoutX="430.0" layoutY="106.0" text="Label" />
+      <Label fx:id="countryinfo" layoutX="430.0" layoutY="155.0" text="Label" />
+      <Label fx:id="typeinfo" layoutX="430.0" layoutY="200.0" text="Label" />
+      <Label fx:id="addressinfo" layoutX="711.0" layoutY="58.0" text="Label" />
+      <Label fx:id="capacityinfo" layoutX="713.0" layoutY="106.0" text="Label" />
+      <Label fx:id="ratinginfo" layoutX="713.0" layoutY="155.0" text="Label" />
+      <Label fx:id="optionsinfo" layoutX="132.0" layoutY="247.0" text="Label" />
+      <Label layoutX="604.0" layoutY="200.0" text="Disponibilty :" />
+      <Label layoutX="-127.0" layoutY="6.0" text="Label" />
+      <Label fx:id="dispoinfo" layoutX="713.0" layoutY="200.0" text="Label" />
+      <Label layoutX="596.0" layoutY="247.0" text="Price Per Night :" />
+      <Label fx:id="priceinfo" layoutX="711.0" layoutY="249.0" text="Label" />
+      <Label fx:id="descriptioninfo" layoutX="134.0" layoutY="285.0" text="Label" />
+      <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="148.0" layoutY="332.0" prefHeight="338.0" prefWidth="591.0" styleClass="transparent-scroll-pane">
+         <content>
+            <FlowPane fx:id="albuminfoo" hgap="10.0" prefHeight="361.0" prefWidth="902.0" prefWrapLength="300.0" styleClass="transparent-scroll-pane" vgap="10.0">
+               <padding>
+                  <Insets bottom="10" left="10" right="10" top="10" />
+               </padding>
+      
+            </FlowPane>
+         </content>
+
+            </ScrollPane>
+      <Button fx:id="returnButton" layoutX="791.0" layoutY="702.0" mnemonicParsing="false" onAction="#retournerClient" prefHeight="27.0" prefWidth="41.0">
+         <graphic>
+            <FontAwesomeIconView glyphName="CHEVRON_LEFT" size="18" />
+         </graphic>
+      </Button>
+
+
+   </children>
+</AnchorPane>

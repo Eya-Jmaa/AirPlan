@@ -103,7 +103,7 @@ public class HotelAgence {
                 Hebergement selected = tableaccomodation.getSelectionModel().getSelectedItem();
 
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/hotel_info.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/hotel_info_agence.fxml"));
                     Parent root = loader.load();
 
                     // Passe les données au contrôleur de la fenêtre des détails
@@ -222,6 +222,8 @@ public class HotelAgence {
         stage.show();
 
     }
+    //list
+
 
 
     //recherche

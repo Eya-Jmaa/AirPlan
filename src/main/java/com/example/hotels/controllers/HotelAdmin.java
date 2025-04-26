@@ -85,7 +85,7 @@ public class HotelAdmin {
             if (event.getClickCount() == 2 && tableaccomodation.getSelectionModel().getSelectedItem() != null) {
                 Hebergement selected = tableaccomodation.getSelectionModel().getSelectedItem();
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/hotel_info.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/hotel_info_agence.fxml"));
                     Parent root = loader.load();
                     HotelInfo controller = loader.getController();
                     controller.setHebergementDetails(selected);

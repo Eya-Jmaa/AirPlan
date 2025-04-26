@@ -128,6 +128,15 @@ public class ServiceHebergement {
     }
 
 
-
+    public void updateStatus(int id, String newStatus) throws SQLException {
+        String sql = "UPDATE hebergement SET status = ? WHERE acc_id = ?";
+        try (PreparedStatement stmt = cnx.prepareStatement(sql)) {
+            stmt.setString(1, newStatus);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+        }
+    }
 }
+
+
 
