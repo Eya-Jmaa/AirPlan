@@ -5,6 +5,7 @@ import com.example.hotels.services.ServiceHebergement;
 import com.example.hotels.view.AccCellFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -34,25 +35,30 @@ public class AccCellController implements Initializable {
     private Label city_lbl;
     @FXML
     private Label country_lbl;
-    private  Hebergement hebergement;
-    private ListView<Hebergement> listHebergement; // pas @FXML !
+    private Hebergement hebergement;
+    private ListView<Hebergement> listHebergement;
+    private FilteredList<Hebergement> filteredList;
 
-    // Setter pour la lier manuellement
+    // Pas @FXML !
     public void setListHebergement(ListView<Hebergement> listHebergement) {
         this.listHebergement = listHebergement;
     }
-
 
     private ObservableList<Hebergement> list;
     @FXML
     private Button btnDelete;
     @FXML
     private Button btnEdit;
-    private ServiceHebergement service = new ServiceHebergement(); // à ajouter
+    private ServiceHebergement service = new ServiceHebergement(); // À ajouter
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
+
+        // Charger les hébergements dans la ListView
+
 
         btnEdit.setOnAction(event -> {
             if (hebergement != null) {
@@ -63,11 +69,10 @@ public class AccCellController implements Initializable {
         btnDelete.setOnAction(event -> {
             if (hebergement != null) {
                 deleteHebergement(hebergement);
+                setListHebergement(listHebergement);
             }
         });
     }
-
-
 
     private void openModifyHebergementWindow(Hebergement hebergement) {
         try {
@@ -89,15 +94,10 @@ public class AccCellController implements Initializable {
             // Tu peux aussi ajuster des propriétés de la scène si nécessaire
             // Ajuste la hauteur de la fenêtre
 
-            // Pas besoin de fermer la fenêtre ou de créer un nouveau Stage, on remplace juste le contenu de la scène actuelle
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
-
 
     private void deleteHebergement(Hebergement selectedHebergement) {
         // Afficher une boîte de dialogue de confirmation
@@ -111,12 +111,14 @@ public class AccCellController implements Initializable {
                 // Supprimer de la base de données
                 service.supprimer(selectedHebergement.getId());
 
-                // Supprimer de la ListView seulement si elle est disponible
                 if (listHebergement != null) {
+                    // Supprimer directement de la liste affichée
                     listHebergement.getItems().remove(selectedHebergement);
 
-                    // Rafraîchir la liste
-                    updateAccData();
+                    // Mettre à jour la liste filtrée et rafraîchir la vue
+                    filteredList.setPredicate(p -> p != selectedHebergement);
+                    listHebergement.setItems(filteredList);
+                    setListHebergement(listHebergement); // 🔥 AJOUTE refresh ici 🔥
                 } else {
                     System.out.println("⚠️ listHebergement est null, impossible de rafraîchir.");
                 }
@@ -124,7 +126,24 @@ public class AccCellController implements Initializable {
         });
     }
 
+    private void loadHebergements() {
+        try {
+            List<Hebergement> hebergements = service.afficher();
 
+            if (list == null) {
+                // Première fois : on crée l'ObservableList et on setup la ListView
+                list = FXCollections.observableArrayList(hebergements);
+                filteredList = new FilteredList<>(list, p -> true);
+                listHebergement.setItems(filteredList);
+                listHebergement.setCellFactory(param -> new AccCellFactory());
+            } else {
+                // Déjà initialisé : on met juste à jour les données
+                list.setAll(hebergements);
+            }
+        } catch (Exception e) {
+            showErrorAlert("Loading Error", "Failed to load hebergements: " + e.getMessage());
+        }
+    }
 
     public void setHebergement(Hebergement hebergement) {
         this.hebergement = hebergement;
@@ -139,9 +158,6 @@ public class AccCellController implements Initializable {
             name_lbl.setText(hebergement.getName());
             type_lbl.setText(hebergement.getType());
             price_lbl.setText(String.format("TND %.2f", hebergement.getPricePerNight()));
-
-
-
         }
     }
 
@@ -153,7 +169,6 @@ public class AccCellController implements Initializable {
         alert.showAndWait();
     }
 
-
     private void showErrorAlert(String title, String message) {
         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
                 javafx.scene.control.Alert.AlertType.ERROR);
@@ -162,6 +177,4 @@ public class AccCellController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
-
 }

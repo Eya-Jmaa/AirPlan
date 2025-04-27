@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+
+<AnchorPane prefHeight="750.0" prefWidth="850.0" stylesheets="@../style/clientacc.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hotels.controllers.CompanyAcc">
+   <children>
+      <ScrollPane fx:id="scrollPane" layoutY="249.0" prefHeight="530.0" prefWidth="850.0">
+         <content>
+            <FlowPane fx:id="flowPane" prefHeight="600.0" prefWidth="850.0" />
+         </content>
+      </ScrollPane>
+      <TextField fx:id="destinationfiled" layoutX="14.0" layoutY="195.0" prefHeight="26.0" prefWidth="221.0" promptText="Where Are You Going?" />
+      <FontAwesomeIconView glyphName="GLOBE" layoutX="212.0" layoutY="214.0" size="16" text="" />
+      <ComboBox fx:id="pricecombo" layoutX="261.0" layoutY="195.0" prefHeight="26.0" prefWidth="150.0" promptText="Sort By Price" />
+      <FontAwesomeIconView glyphName="MONEY" layoutX="373.0" layoutY="214.0" size="16" />
+      <ImageView fitHeight="148.0" fitWidth="308.0" layoutX="542.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/zina1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="140.0" fitWidth="308.0" layoutX="-4.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/zina3.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="131.0" fitWidth="602.0" layoutX="127.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/titre.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
