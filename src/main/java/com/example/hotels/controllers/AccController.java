@@ -2,10 +2,8 @@ package com.example.hotels.controllers;
 
 import com.example.hotels.models.Hebergement;
 import com.example.hotels.services.ServiceHebergement;
-import com.example.hotels.view.AccCellFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,6 +21,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class AccController implements Initializable {
+
     @FXML
     private TextField namefilteragence;
     @FXML
@@ -34,20 +34,38 @@ public class AccController implements Initializable {
     private ListView<Hebergement> listHebergement;
 
     private ObservableList<Hebergement> list;
-    private FilteredList<Hebergement> filteredList;
     private ServiceHebergement service;
     private Stage stage;
     private Scene scene;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            service = new ServiceHebergement();
-            loadHebergements();
-            setupSearchFilters();
-        } catch (Exception e) {
-            showErrorAlert("Initialization Error", "Failed to initialize controller: " + e.getMessage());
-        }
+        service = new ServiceHebergement();
+
+        listHebergement.setCellFactory(lv -> new ListCell<Hebergement>() {
+            @Override
+            protected void updateItem(Hebergement hebergement, boolean empty) {
+                super.updateItem(hebergement, empty);
+                if (empty || hebergement == null) {
+                    setGraphic(null);
+                } else {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/AccommodationCell.fxml"));
+                        AnchorPane pane = loader.load();
+                        AccCellController controller = loader.getController();
+
+                        controller.setListHebergement(listHebergement);
+                        controller.setHebergement(hebergement);
+
+                        setGraphic(pane);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        loadHebergements();
 
         listHebergement.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
@@ -63,38 +81,10 @@ public class AccController implements Initializable {
         try {
             List<Hebergement> hebergements = service.afficher();
             list = FXCollections.observableArrayList(hebergements);
-            filteredList = new FilteredList<>(list, p -> true);
-
-            listHebergement.setItems(filteredList);
-            listHebergement.setCellFactory(param -> new AccCellFactory());
+            listHebergement.setItems(list);
         } catch (Exception e) {
-            showErrorAlert("Loading Error", "Failed to load hebergements: " + e.getMessage());
+            showErrorAlert("Loading Error", "Failed to load hébergements: " + e.getMessage());
         }
-    }
-
-    private void setupSearchFilters() {
-        namefilteragence.textProperty().addListener((obs, oldValue, newValue) -> applySearch());
-        countryfilteragence.textProperty().addListener((obs, oldValue, newValue) -> applySearch());
-        dispocomboagence.valueProperty().addListener((obs, oldValue, newValue) -> applySearch());
-        typecombifilteragence.valueProperty().addListener((obs, oldValue, newValue) -> applySearch());
-        typecombifilteragence.getItems().addAll("Hotel", "House", "Apartment", "Villa","Hostel","Bungalow");
-        dispocomboagence.getItems().addAll("waiting", "accepted", "refused");
-    }
-
-    private void applySearch() {
-        String nameFilter = namefilteragence.getText().toLowerCase();
-        String countryFilter = countryfilteragence.getText().toLowerCase();
-        String dispoFilter = dispocomboagence.getValue() != null ? dispocomboagence.getValue().toLowerCase() : "";
-        String typeFilter = typecombifilteragence.getValue() != null ? typecombifilteragence.getValue().toLowerCase() : "";
-
-        filteredList.setPredicate(hebergement -> {
-            boolean matchName = hebergement.getName().toLowerCase().contains(nameFilter);
-            boolean matchCountry = hebergement.getCountry().toLowerCase().contains(countryFilter);
-            boolean matchDispo = dispoFilter.isEmpty() || hebergement.getStatus().toLowerCase().contains(dispoFilter);
-            boolean matchType = typeFilter.isEmpty() || hebergement.getType().toLowerCase().contains(typeFilter);
-
-            return matchName && matchCountry && matchDispo && matchType;
-        });
     }
 
     public void ouvrirFenetreDetails(Hebergement hebergement) {
@@ -121,19 +111,21 @@ public class AccController implements Initializable {
         stage.show();
     }
 
-    @FXML
-    public void onReset(ActionEvent actionEvent) {
-        namefilteragence.clear();
-        countryfilteragence.clear();
-        dispocomboagence.setValue(null);
-        typecombifilteragence.setValue(null);
-    }
-
     private void showErrorAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    public void onReset(ActionEvent actionEvent) {
+        // Réinitialiser les filtres si nécessaire
+        namefilteragence.clear();
+        countryfilteragence.clear();
+        dispocomboagence.getSelectionModel().clearSelection();
+        typecombifilteragence.getSelectionModel().clearSelection();
+        loadHebergements();
     }
 }
