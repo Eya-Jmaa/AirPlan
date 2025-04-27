@@ -2,10 +2,12 @@ package com.example.hotels.controllers;
 
 import com.example.hotels.models.Hebergement;
 import com.example.hotels.services.ServiceHebergement;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -193,9 +195,8 @@ public class ClientAcc {
         btnReserver.setStyle("-fx-background-color: #588b8b; -fx-text-fill: white; -fx-background-radius: 5;");
         btnReserver.setVisible(false); // Caché au début
 
-        btnReserver.setOnAction(e -> {
-            openHotelInfo(hebergement);
-        });
+        btnReserver.setOnAction(event -> openReservation(hebergement, event));
+
 
 // Conteneur bouton
         HBox btnContainer = new HBox(btnReserver);
@@ -241,29 +242,57 @@ public class ClientAcc {
 
     private void openHotelInfo(Hebergement hebergement) {
         try {
+            // Charger le fichier FXML de la scène hotel_info
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/hotel_info_client.fxml"));
             Parent root = loader.load();
 
-            // Récupérer le controller de hotel_info
+            // Récupérer le contrôleur de hotel_info
             HotelInfoClient hotelInfoController = loader.getController();
 
-            // Appeler une méthode pour remplir les infos
+            // Passer les données de l'hébergement au contrôleur
             hotelInfoController.setHebergementDetails(hebergement);
 
-            // Afficher la nouvelle fenêtre
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setResizable(false);
-            stage.show();
+            // Obtenir la scène actuelle et changer le root (la vue)
+            Scene currentScene = scrollPane.getScene();
+            currentScene.setRoot(root);  // Remplacer le contenu de la scène avec la nouvelle vue
 
-            // Fermer la fenêtre actuelle (client_acc)
-            Stage currentStage = (Stage) scrollPane.getScene().getWindow();
-            currentStage.close();
+
+
+            // Pas besoin de fermer la fenêtre actuelle, car on remplace juste son contenu
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
+    private void openReservation(Hebergement hebergement, ActionEvent event) {
+        try {
+            // Charger le fichier FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/reservationclient.fxml"));
+            Parent root = loader.load();
+
+            // Récupérer le stage de la scène actuelle
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Récupérer le contrôleur du fichier FXML
+            ReservationClient controller = loader.getController();
+
+            // Passer les données de l'hébergement au contrôleur
+            controller.setHebergementData(hebergement);
+
+            // Changer la scène dans le stage actuel
+            Scene newScene = new Scene(root); // Créer la nouvelle scène
+            stage.setScene(newScene); // Appliquer la nouvelle scène au stage actuel
+            stage.show(); // Afficher le stage avec la nouvelle scène
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+
 
 
 }

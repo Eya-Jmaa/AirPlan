@@ -35,9 +35,9 @@ public class AccCellController implements Initializable {
     @FXML
     private Label country_lbl;
     private  Hebergement hebergement;
-    @FXML
-    private ListView<Hebergement> listHebergement;
+    private ListView<Hebergement> listHebergement; // pas @FXML !
 
+    // Setter pour la lier manuellement
     public void setListHebergement(ListView<Hebergement> listHebergement) {
         this.listHebergement = listHebergement;
     }
@@ -71,36 +71,32 @@ public class AccCellController implements Initializable {
 
     private void openModifyHebergementWindow(Hebergement hebergement) {
         try {
+            // Charger le fichier FXML de la scène de modification de l'hébergement
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/com/example/hotels/fxml/hotel_add.fxml")); // Chemin correct ici
             Parent root = loader.load();
 
-            // Passer les données au contrôleur
+            // Récupérer le contrôleur de hotel_add
             HotelAdd controller = loader.getController();
-            controller.initData(hebergement); // tu dois avoir cette méthode dans HotelAdd
 
-            // Créer et afficher la fenêtre
-            Stage stage = new Stage();
-            stage.setTitle("Modifier Hébergement");
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL); // bloque les autres fenêtres
-            stage.show();
+            // Passer les données au contrôleur
+            controller.initData(hebergement);
+
+            // Obtenir la scène actuelle et changer le root (la vue)
+            Scene currentScene = btnEdit.getScene(); // Ici tu utilises n'importe quel composant de ta fenêtre actuelle pour obtenir la scène
+            currentScene.setRoot(root); // Remplacer le contenu de la scène avec la nouvelle vue
+
+            // Tu peux aussi ajuster des propriétés de la scène si nécessaire
+            // Ajuste la hauteur de la fenêtre
+
+            // Pas besoin de fermer la fenêtre ou de créer un nouveau Stage, on remplace juste le contenu de la scène actuelle
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void loadHebergements() {
-        try {
-            List<Hebergement> hebergements =service.afficher();
-            list = FXCollections.observableArrayList(hebergements);
-            listHebergement.setCellFactory(param -> new AccCellFactory());
-            listHebergement.setItems(list);
-        } catch (Exception e) {
-            showErrorAlert("Loading Error", "Failed to load flights: " + e.getMessage());
-        }
-    }
+
 
 
     private void deleteHebergement(Hebergement selectedHebergement) {
@@ -112,17 +108,22 @@ public class AccCellController implements Initializable {
 
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                // Supprimer l’hébergement de la base de données
+                // Supprimer de la base de données
                 service.supprimer(selectedHebergement.getId());
 
-                // Supprimer l’hébergement de la ListView (ou ObservableList)
-                listHebergement.getItems().remove(selectedHebergement);
+                // Supprimer de la ListView seulement si elle est disponible
+                if (listHebergement != null) {
+                    listHebergement.getItems().remove(selectedHebergement);
 
-                // Actualiser la liste d'hébergements
-                updateAccData();  // Rafraîchir la liste des hébergements après suppression
+                    // Rafraîchir la liste
+                    updateAccData();
+                } else {
+                    System.out.println("⚠️ listHebergement est null, impossible de rafraîchir.");
+                }
             }
         });
     }
+
 
 
     public void setHebergement(Hebergement hebergement) {
