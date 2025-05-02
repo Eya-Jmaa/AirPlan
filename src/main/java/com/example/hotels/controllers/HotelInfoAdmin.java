@@ -50,7 +50,7 @@ public class HotelInfoAdmin {
     public void retournerAdmin() {
         try {
             // Charger la vue accommodation
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/accadmin.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/admin_acc.fxml"));
             Parent root = loader.load();
 
             // Obtenir la scène depuis le bouton

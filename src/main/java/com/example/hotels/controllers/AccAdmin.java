@@ -77,7 +77,7 @@ public class AccAdmin implements Initializable {
         dispocomboagence.valueProperty().addListener((obs, oldValue, newValue) -> applySearch());
         typecombifilteragence.valueProperty().addListener((obs, oldValue, newValue) -> applySearch());
         typecombifilteragence.getItems().addAll("Hotel", "House", "Apartment", "Villa","Hostel","Bungalow");
-        dispocomboagence.getItems().addAll("waiting", "accepted", "refused");
+        dispocomboagence.getItems().addAll("waiting", "accepted", "rejected");
     }
 
     private void applySearch() {

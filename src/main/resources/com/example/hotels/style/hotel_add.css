@@ -13,6 +13,7 @@
 #anchop{
     -fx-background-color: white;
     -fx-background-radius: 15px;
+    -fx-effect: dropshadow(three-pass-box,#AAAAAA,10,0,0,10);
 }
 .title_pane FontAwesomeIconView{
     -fx-fill: #ffd5c2;
@@ -32,6 +33,21 @@
     -fx-cursor: hand;
 
 }
+
+
+.combo-box {
+    -fx-background-color: linear-gradient(to right, #588b8b,#AAAAAA); /* Dégradé vertical */
+
+}
+
+.Button {
+    -fx-background-color: linear-gradient(to right, #588b8b,#AAAAAA);
+
+    -fx-font-size: 1.2em;
+    -fx-font-weight: bold;
+    -fx-border-radius: 20;
+}
+
 
 /* Effet au survol */
 .button:hover {

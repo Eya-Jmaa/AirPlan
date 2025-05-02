@@ -131,7 +131,7 @@ public class HotelAdd  {
             } else {
                 selectedOptions.remove(label);
             }
-            String joined = String.join(", ", selectedOptions);
+            String joined = String.join("-\n ", selectedOptions);
             System.out.println("Options sélectionnées : " + joined);
         });
 
@@ -155,18 +155,36 @@ public class HotelAdd  {
     @FXML
     private void handleSubmit(ActionEvent event) {
         try {
-            // Validation simple
-            if (namefield.getText().isEmpty() || typeCombo.getValue() == null || cityfield.getText().isEmpty()) {
-                showAlert("Veuillez remplir les champs obligatoires.", Alert.AlertType.WARNING);
+            // Basic empty field validation
+            if (namefield.getText().isEmpty() ||
+                    descriptionfield.getText().isEmpty() ||
+                    typeCombo.getValue() == null ||
+                    cityfield.getText().isEmpty() ||
+                    addressfield.getText().isEmpty() ||
+                    countryfield.getText().isEmpty() ||
+                    pricefield.getText().isEmpty() ||
+                    fileLabel.getText().isEmpty() ||
+                    albumlabel.getText().isEmpty() ||
+                    rating.get() <= 0 ) {
+
+                showAlert("Please fill in all required fields.", Alert.AlertType.WARNING);
                 return;
             }
+
+
+            // Regex patterns
+            String nameRegex = "^[A-Za-z\\s]{3,}$";
+            String cityRegex = "^[A-Za-z\\s]{2,}$";
+            String addressRegex = "^[A-Za-z0-9\\s]{5,}$";
+            String countryRegex = "^[A-Za-z\\s]{2,}$";
+            String priceRegex = "^\\d+(\\.\\d{1,2})?$";
 
             String name = namefield.getText();
             String type = typeCombo.getValue();
             String city = cityfield.getText();
             String address = addressfield.getText();
             String country = countryfield.getText();
-            double price = Double.parseDouble(pricefield.getText());
+            String priceText = pricefield.getText();
             String photo = fileLabel.getText();
             String album = albumlabel.getText();
             String description = descriptionfield.getText();
@@ -176,17 +194,45 @@ public class HotelAdd  {
             String options = String.join(", ", selectedOptions);
             String status = "waiting";
 
+            // Regex validation
+            if (!name.matches(nameRegex)) {
+                showAlert("Name must contain only letters and have at least 3 characters.", Alert.AlertType.WARNING);
+                return;
+            }
+            if (!city.matches(cityRegex)) {
+                showAlert("City must contain only letters and have at least 2 characters.", Alert.AlertType.WARNING);
+                return;
+            }
+            if (!address.isEmpty() && !address.matches(addressRegex)) {
+                showAlert("Address must have at least 5 characters (letters and numbers allowed).", Alert.AlertType.WARNING);
+                return;
+            }
+            if (!country.isEmpty() && !country.matches(countryRegex)) {
+                showAlert("Country must contain only letters.", Alert.AlertType.WARNING);
+                return;
+            }
+            if (!priceText.matches(priceRegex)) {
+                showAlert("Price must be a valid number (e.g., 100 or 100.50).", Alert.AlertType.WARNING);
+                return;
+            }
+             if (description.isEmpty()) {
+                 showAlert("Price must be a valid number (e.g., 100 or 100.50).", Alert.AlertType.WARNING);
+                 return;
+
+             }
+            double price = Double.parseDouble(priceText);
+
             ServiceHebergement sh = new ServiceHebergement();
 
             if (hebergementToEdit == null) {
-                // ➕ Ajout
-                Hebergement h = new Hebergement(name, type, city, address, country, price, disponibility, photo, album, description, options, rating, capacity,status);
+                // ➕ Adding
+                Hebergement h = new Hebergement(name, type, city, address, country, price, disponibility, photo, album, description, options, rating, capacity, status);
 
                 sh.ajouter(h);
-                showAlert("Ajouté avec succès !", Alert.AlertType.INFORMATION);
+                showAlert("Accommodation added successfully!", Alert.AlertType.INFORMATION);
                 clearForm();
             } else {
-                // 🔁 Modification
+                // 🔁 Editing
                 hebergementToEdit.setName(name);
                 hebergementToEdit.setType(type);
                 hebergementToEdit.setCity(city);
@@ -201,22 +247,19 @@ public class HotelAdd  {
                 hebergementToEdit.setCapacity(capacity);
                 hebergementToEdit.setDisponibility(disponibility);
 
-
                 sh.modifier(hebergementToEdit);
-                showAlert("Modification réussie !", Alert.AlertType.INFORMATION);
+                showAlert("Accommodation updated successfully!", Alert.AlertType.INFORMATION);
                 hebergementToEdit = null;
             }
 
-            // 🧼 Réinitialisation du formulaire
-
-
         } catch (NumberFormatException e) {
-            showAlert("Le prix doit être un nombre valide.", Alert.AlertType.ERROR);
+            showAlert("Price must be a valid number.", Alert.AlertType.ERROR);
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert("Une erreur est survenue.", Alert.AlertType.ERROR);
+            showAlert("An unexpected error occurred.", Alert.AlertType.ERROR);
         }
     }
+
     private void showAlert(String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle("Information");
@@ -282,7 +325,7 @@ public class HotelAdd  {
     }
 
     public void switch_admin(ActionEvent event ) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/hotels/fxml/Accommodation.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/hotels/fxml/agency_acc.fxml")));
         stage= (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

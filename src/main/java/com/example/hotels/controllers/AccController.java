@@ -23,16 +23,11 @@ import java.util.ResourceBundle;
 public class AccController implements Initializable {
 
     @FXML
-    private TextField namefilteragence;
-    @FXML
     private ComboBox<String> dispocomboagence;
     @FXML
     private TextField countryfilteragence;
     @FXML
-    private ComboBox<String> typecombifilteragence;
-    @FXML
     private ListView<Hebergement> listHebergement;
-
     private ObservableList<Hebergement> list;
     private ServiceHebergement service;
     private Stage stage;
@@ -50,7 +45,7 @@ public class AccController implements Initializable {
                     setGraphic(null);
                 } else {
                     try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/AccommodationCell.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/AccCell_agency.fxml"));
                         AnchorPane pane = loader.load();
                         AccCellController controller = loader.getController();
 
@@ -121,11 +116,9 @@ public class AccController implements Initializable {
 
     @FXML
     public void onReset(ActionEvent actionEvent) {
-        // Réinitialiser les filtres si nécessaire
-        namefilteragence.clear();
+
         countryfilteragence.clear();
         dispocomboagence.getSelectionModel().clearSelection();
-        typecombifilteragence.getSelectionModel().clearSelection();
         loadHebergements();
     }
 }

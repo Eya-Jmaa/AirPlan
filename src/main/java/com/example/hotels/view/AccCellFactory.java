@@ -1,14 +1,10 @@
 package com.example.hotels.view;
 
 import com.example.hotels.controllers.AccCellController;
-import com.example.hotels.controllers.AccController;
 import com.example.hotels.models.Hebergement;
-import com.example.hotels.services.ServiceHebergement;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 
 import java.io.IOException;
 
@@ -23,7 +19,7 @@ public class AccCellFactory extends ListCell<Hebergement> {
             setGraphic(null);
         } else {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/AccommodationCell.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/AccCell_agency.fxml"));
                 Node cellView = loader.load();
                 AccCellController controller = loader.getController();
                 controller.setHebergement(hebergement);

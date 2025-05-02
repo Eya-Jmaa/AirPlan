@@ -14,7 +14,19 @@
     -fx-background-radius: 8;
 }
 
+.combo-box {
+    -fx-background-color: linear-gradient(to right, #588b8b,#AAAAAA); /* Dégradé vertical */
 
+}
+
+
+.Button {
+    -fx-background-color: linear-gradient(to right, #588b8b,#AAAAAA);
+
+    -fx-font-size: 1.2em;
+    -fx-font-weight: bold;
+    -fx-border-radius: 20;
+}
 .progress-indicator {
     -fx-progress-color: #588b8b;
 }
@@ -60,10 +72,20 @@
 
 }
 
+.search_form {
+    -fx-background-color: white;
+    -fx-background-radius: 25;
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 1.5em;
+    -fx-font-weight: bold;
+    -fx-alignment: center_left;
 
+
+}
 #anchorfilter{
     -fx-background-color: white;
     -fx-background-radius: 25;
+    -fx-effect: dropshadow(three-pass-box,#AAAAAA,10,0,0,10);
 }
 .title_pane FontAwesomeIconView{
     -fx-fill: #ffd5c2;

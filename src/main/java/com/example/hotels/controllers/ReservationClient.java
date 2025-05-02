@@ -46,6 +46,21 @@ public class ReservationClient {
     @javafx.fxml.FXML
     private Button btnReserve;
 
+
+    @FXML
+    public void initialize() {
+        // Adult spinner (minimum 1 adulte)
+        SpinnerValueFactory<Integer> adultFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, 1);
+        adultspinner.setValueFactory(adultFactory);
+
+        // Children spinner (minimum 0 enfant)
+        SpinnerValueFactory<Integer> childrenFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10, 0);
+        childrenspinner.setValueFactory(childrenFactory);
+
+        // Room spinner (minimum 1 chambre)
+        SpinnerValueFactory<Integer> roomFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, 1);
+        roomspinner.setValueFactory(roomFactory);
+    }
     public void setHebergementData(Hebergement hebergement) {
         if (hebergement != null) {
             Image img = new Image(hebergement.getPhoto(), 200, 150, true, true);
@@ -86,7 +101,7 @@ public class ReservationClient {
     private void handleCancelAction(ActionEvent event) {
         try {
             // Charger le fichier FXML de ClientAcc
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/clien_acc.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/client_acc.fxml"));
             Parent root = loader.load();
 
             // Récupérer le stage de la scène actuelle
@@ -99,6 +114,75 @@ public class ReservationClient {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+
+
+    @FXML
+    private void handleSubmit(ActionEvent event) {
+        if (departuredate.getValue() == null ||
+                arrivaldate.getValue() == null )
+                // || requestarea.getText().isEmpty() )
+        {
+
+            showAlert("Please fill in all required fields.", Alert.AlertType.WARNING);
+            return;
+        }
+
+        if (!validateForm()) {
+            return; }
+    }
+
+
+    private boolean validateForm() {
+        String requestText = requestarea.getText().trim();
+
+        // Validate request text with regex
+        if (!requestarea.getText().matches("^[A-Za-z0-9\\s.,;:!?()'-]*$")) {
+            showAlert("Request must contain only valid characters.", Alert.AlertType.WARNING);
+            return false;
+        }
+
+        // Validate dates
+        if (arrivaldate.getValue() == null || departuredate.getValue() == null) {
+            showAlert("Please select both arrival and departure dates.", Alert.AlertType.WARNING);
+            return false;
+        }
+
+        int arrivalYear = arrivaldate.getValue().getYear();
+        int departureYear = departuredate.getValue().getYear();
+        if (!((arrivalYear == 2025 || arrivalYear == 2026) && (departureYear == 2025 || departureYear == 2026))) {
+            showAlert("Arrival and Departure dates must be in 2025 or 2026.", Alert.AlertType.WARNING);
+            return false;
+        }
+
+        if (departuredate.getValue().isBefore(arrivaldate.getValue())) {
+            showAlert("Departure date must be after arrival date.", Alert.AlertType.WARNING);
+            return false;
+        }
+
+        // Validate spinners
+        if (adultspinner.getValue() == null ) {
+            showAlert("At least one adult is required.", Alert.AlertType.WARNING);
+            return false;
+        }
+
+        if (roomspinner.getValue() == null ) {
+            showAlert("At least one room must be selected.", Alert.AlertType.WARNING);
+            return false;
+        }
+
+
+
+        return true; // All validations passed
+    }
+
+    private void showAlert(String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle("Information");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 

@@ -12,9 +12,9 @@
 
 <AnchorPane prefHeight="750.0" prefWidth="850.0" stylesheets="@../style/reservationclient.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hotels.controllers.ReservationClient">
    <children>
-      <Button fx:id="btnReserve" layoutX="286.0" layoutY="698.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="79.0" styleClass="Button" text="Submit" />
-      <Button fx:id="btnCancel" layoutX="459.0" layoutY="698.0" mnemonicParsing="false" onAction="#handleCancelAction" prefHeight="32.0" prefWidth="79.0" styleClass="Button" text="Cancel" />
-      <TextArea fx:id="requestarea" layoutX="30.0" layoutY="554.0" prefHeight="120.0" prefWidth="706.0" />
+      <Button fx:id="btnReserve" layoutX="319.0" layoutY="699.0" mnemonicParsing="false" onAction="#handleSubmit" prefHeight="32.0" prefWidth="79.0" styleClass="Button" text="Submit" />
+      <Button fx:id="btnCancel" layoutX="434.0" layoutY="699.0" mnemonicParsing="false" onAction="#handleCancelAction" prefHeight="32.0" prefWidth="79.0" styleClass="Button" text="Cancel" />
+      <TextArea fx:id="requestarea" layoutX="37.0" layoutY="554.0" prefHeight="120.0" prefWidth="575.0" />
       <AnchorPane id="anchorfilter" layoutX="24.0" layoutY="362.0" prefHeight="130.0" prefWidth="714.0">
          <children>
             <Label layoutX="17.0" layoutY="77.0" text="Arrival - Date / Time :">
@@ -48,12 +48,12 @@
          <font>
             <Font size="14.0" />
          </font></Label>
-      <ImageView fitHeight="65.0" fitWidth="706.0" layoutX="63.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="65.0" fitWidth="706.0" layoutX="61.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/titrereservation.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="120.0" fitWidth="256.0" layoutX="606.0" layoutY="633.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="107.0" fitWidth="217.0" layoutX="633.0" layoutY="643.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/zinareservation.png" />
          </image>
@@ -93,5 +93,10 @@
             </Label>
          </children>
       </AnchorPane>
+      <ImageView fitHeight="211.0" fitWidth="167.0" layoutX="672.0" layoutY="463.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/bagage.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

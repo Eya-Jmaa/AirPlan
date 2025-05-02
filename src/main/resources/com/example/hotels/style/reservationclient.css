@@ -1,6 +1,7 @@
 #anchorfilter{
     -fx-background-color: white;
     -fx-background-radius: 25;
+    -fx-effect: dropshadow(three-pass-box,#AAAAAA,10,0,0,10);
 }
 
 .Button {

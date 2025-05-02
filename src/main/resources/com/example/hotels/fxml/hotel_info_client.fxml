@@ -9,39 +9,24 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="flights_view" stylesheets="@../style/hotelinfo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hotels.controllers.HotelInfoClient">
    <children>
-      <ImageView fx:id="photoinfo" fitHeight="206.0" fitWidth="266.0" layoutX="23.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="photoinfo" fitHeight="194.0" fitWidth="212.0" layoutX="19.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/hebergementicon.png" />
          </image>
       </ImageView>
-      <Label layoutX="319.0" layoutY="58.0" text="Name :" />
-      <Label layoutX="324.0" layoutY="106.0" text="City :" />
-      <Label layoutX="314.0" layoutY="155.0" text="Country :" />
-      <Label layoutX="322.0" layoutY="200.0" text="Type :" />
-      <Label layoutX="42.0" layoutY="249.0" text="Options :" />
-      <Label layoutX="606.0" layoutY="58.0" text="Full Adress :" />
-      <Label layoutX="609.0" layoutY="106.0" text="Capacity :" />
-      <Label layoutX="618.0" layoutY="155.0" text="Rating :" />
-      <Label layoutX="40.0" layoutY="286.0" text="Description :" />
-      <Label layoutX="47.0" layoutY="332.0" text="Album :" />
-      <Label fx:id="nameinfo" layoutX="430.0" layoutY="58.0" text="Label" />
-      <Label fx:id="cityinfo" layoutX="430.0" layoutY="106.0" text="Label" />
-      <Label fx:id="countryinfo" layoutX="430.0" layoutY="155.0" text="Label" />
-      <Label fx:id="typeinfo" layoutX="430.0" layoutY="200.0" text="Label" />
-      <Label fx:id="addressinfo" layoutX="711.0" layoutY="58.0" text="Label" />
-      <Label fx:id="capacityinfo" layoutX="713.0" layoutY="106.0" text="Label" />
-      <Label fx:id="ratinginfo" layoutX="713.0" layoutY="155.0" text="Label" />
-      <Label fx:id="optionsinfo" layoutX="132.0" layoutY="247.0" text="Label" />
-      <Label layoutX="604.0" layoutY="200.0" text="Disponibilty :" />
-      <Label layoutX="-127.0" layoutY="6.0" text="Label" />
-      <Label fx:id="dispoinfo" layoutX="713.0" layoutY="200.0" text="Label" />
-      <Label layoutX="596.0" layoutY="247.0" text="Price Per Night :" />
-      <Label fx:id="priceinfo" layoutX="711.0" layoutY="249.0" text="Label" />
-      <Label fx:id="descriptioninfo" layoutX="134.0" layoutY="285.0" text="Label" />
-      <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="148.0" layoutY="332.0" prefHeight="338.0" prefWidth="591.0" styleClass="transparent-scroll-pane">
+      <Label layoutX="66.0" layoutY="402.0" text="Description :">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label fx:id="descriptioninfo" layoutX="213.0" layoutY="402.0" text="Label">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="152.0" layoutY="445.0" prefHeight="280.0" prefWidth="546.0" styleClass="transparent-scroll-pane">
          <content>
             <FlowPane fx:id="albuminfoo" hgap="10.0" prefHeight="361.0" prefWidth="902.0" prefWrapLength="300.0" styleClass="transparent-scroll-pane" vgap="10.0">
                <padding>
@@ -52,11 +37,120 @@
          </content>
 
             </ScrollPane>
-      <Button fx:id="returnButton" layoutX="791.0" layoutY="702.0" mnemonicParsing="false" onAction="#retournerClient" prefHeight="27.0" prefWidth="41.0">
+      <Button fx:id="returnButton" layoutX="791.0" layoutY="702.0" mnemonicParsing="false" onAction="#retournerClient" prefHeight="27.0" prefWidth="41.0" styleClass="Button" stylesheets="@../style/hotel_add.css">
          <graphic>
             <FontAwesomeIconView glyphName="CHEVRON_LEFT" size="18" />
          </graphic>
       </Button>
+      <AnchorPane id="anchop" layoutX="276.0" layoutY="61.0" prefHeight="322.0" prefWidth="546.0" stylesheets="@../style/hotel_add.css">
+         <children>
+            <Label layoutX="19.0" layoutY="27.0" text="Name :">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="143.0" text="City :">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="84.0" text="Country :">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="363.0" layoutY="209.0" text="Type :">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="27.0" layoutY="272.0" text="Options :">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="19.0" layoutY="210.0" text="Full Adress :">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="358.0" layoutY="143.0" text="Capacity :">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="358.0" layoutY="84.0" text="Rating :">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="nameinfo" layoutX="115.0" layoutY="27.0" text="Label">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="cityinfo" layoutX="115.0" layoutY="143.0" text="Label">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="countryinfo" layoutX="115.0" layoutY="84.0" text="Label">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="typeinfo" layoutX="474.0" layoutY="209.0" text="Label">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="addressinfo" layoutX="115.0" layoutY="210.0" text="Label">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="capacityinfo" layoutX="474.0" layoutY="143.0" text="Label">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="ratinginfo" layoutX="474.0" layoutY="84.0" text="Label">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="optionsinfo" layoutX="114.0" layoutY="272.0" text="Label">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="341.0" layoutY="271.0" text="Disponibilty :">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="dispoinfo" layoutX="474.0" layoutY="272.0" text="Label">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="322.0" layoutY="27.0" text="Price Per Night :">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="priceinfo" layoutX="474.0" layoutY="27.0" text="Label">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label layoutX="68.0" layoutY="435.0" text="Album :">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
 
 
    </children>

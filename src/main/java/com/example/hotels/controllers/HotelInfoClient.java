@@ -48,7 +48,7 @@ public class HotelInfoClient {
     public void retournerClient() {
         try {
             // Charger la vue accommodation
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/clien_acc.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/client_acc.fxml"));
             Parent root = loader.load();
 
             // Obtenir la scène depuis le bouton

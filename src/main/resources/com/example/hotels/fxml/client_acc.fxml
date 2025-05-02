@@ -11,15 +11,15 @@
 
 <AnchorPane prefHeight="750.0" prefWidth="850.0" stylesheets="@../style/clientacc.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hotels.controllers.ClientAcc">
    <children>
-      <ScrollPane fx:id="scrollPane" layoutY="249.0" prefHeight="530.0" prefWidth="850.0">
+      <ScrollPane fx:id="scrollPane" layoutY="259.0" prefHeight="520.0" prefWidth="850.0">
          <content>
             <FlowPane fx:id="flowPane" prefHeight="600.0" prefWidth="850.0" />
          </content>
       </ScrollPane>
-      <TextField fx:id="destinationfiled" layoutX="14.0" layoutY="195.0" prefHeight="26.0" prefWidth="221.0" promptText="Where Are You Going?" />
-      <FontAwesomeIconView glyphName="GLOBE" layoutX="212.0" layoutY="214.0" size="16" text="" />
-      <ComboBox fx:id="pricecombo" layoutX="261.0" layoutY="195.0" prefHeight="26.0" prefWidth="150.0" promptText="Sort By Price" />
-      <FontAwesomeIconView glyphName="MONEY" layoutX="373.0" layoutY="214.0" size="16" />
+      <TextField fx:id="destinationfiled" layoutX="14.0" layoutY="185.0" prefHeight="26.0" prefWidth="221.0" promptText="Where Are You Going ?" />
+      <FontAwesomeIconView glyphName="GLOBE" layoutX="213.0" layoutY="204.0" size="16" text="" />
+      <ComboBox fx:id="pricecombo" layoutX="254.0" layoutY="185.0" prefHeight="26.0" prefWidth="166.0" promptText="Sort By Price / Rating" />
+      <FontAwesomeIconView glyphName="SORT" layoutX="390.0" layoutY="204.0" size="16" text="" />
       <ImageView fitHeight="148.0" fitWidth="308.0" layoutX="542.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/zina1.png" />

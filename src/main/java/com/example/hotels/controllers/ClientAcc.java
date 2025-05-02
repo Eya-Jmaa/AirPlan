@@ -41,10 +41,10 @@ public class ClientAcc {
     @FXML
     private TextField destinationfiled;
 
-    private List<Hebergement> hotelList = new ArrayList<>(); // la liste de base
-    private List<Hebergement> displayedHotels = new ArrayList<>(); // liste filtrée
+    private List<Hebergement> hotelList = new ArrayList<>();
+    private List<Hebergement> displayedHotels = new ArrayList<>();
 
-    // Appelé automatiquement après le chargement du FXML
+
     @FXML
     public void initialize() {
           // Marge autour du FlowPane
@@ -55,11 +55,11 @@ public class ClientAcc {
         flowPane.setVgap(20);
         flowPane.setPadding(new Insets(20));
 
-        pricecombo.getItems().addAll("Prix croissant", "Prix décroissant", "Rating");
+        pricecombo.getItems().addAll("Ascending Price", "Descending Price", "Rating");
         pricecombo.setOnAction(event -> sortHotels());
         destinationfiled.textProperty().addListener((observable, oldValue, newValue) -> filterHotels());
 
-        // CHARGER UNIQUEMENT ICI la liste, PAS avec loadHebergements()
+
         hotelList = service.afficher();
         displayedHotels = new ArrayList<>(hotelList);
         updateHotelCards(displayedHotels);
@@ -83,10 +83,10 @@ public class ClientAcc {
         if (selected == null) return;
 
         switch (selected) {
-            case "Prix croissant":
+            case "Ascending Price":
                 displayedHotels.sort(Comparator.comparingDouble(Hebergement::getPricePerNight));
                 break;
-            case "Prix décroissant":
+            case "Descending Price":
                 displayedHotels.sort(Comparator.comparingDouble(Hebergement::getPricePerNight).reversed());
                 break;
             case "Rating":
@@ -101,17 +101,17 @@ public class ClientAcc {
     private void updateHotelCards(List<Hebergement> hebergements) {
         flowPane.getChildren().clear();
         for (Hebergement hebergement : hebergements) {
-            VBox card = createCard(hebergement); // tu récupères la carte
-            flowPane.getChildren().add(card);    // tu l'ajoutes au flowPane !
+            VBox card = createCard(hebergement);
+            flowPane.getChildren().add(card);
         }
     }
 
 
     private void loadHebergements() {
-        // Récupérer les hébergements depuis la base de données
-        List<Hebergement> hebergements = service.afficher(); // Ta fonction personnalisée
 
-        // Ajouter chaque carte dans le FlowPane
+        List<Hebergement> hebergements = service.afficher();
+
+
         for (Hebergement h : hebergements) {
             VBox card = createCard(h);
             flowPane.getChildren().add(card);
@@ -122,11 +122,10 @@ public class ClientAcc {
         VBox carte = new VBox();
         carte.setPrefWidth(250);
         carte.setPadding(new Insets(10));
-        carte.setSpacing(10); // Espacement entre les éléments à l'intérieur de la carte
+        carte.setSpacing(10);
         carte.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 10; "
                 + "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5); "
-                + "-fx-margin: 10;"); // pour un petit effet de marge (si géré par le parent)
-
+                + "-fx-margin: 10;");
         ImageView imageView = new ImageView();
         try {
             Image img = new Image(hebergement.getPhoto(), 200, 150, true, true);
@@ -146,7 +145,7 @@ public class ClientAcc {
 
         Label labelDescription = new Label(hebergement.getDescription());
         labelDescription.setFont(new Font("Arial", 12));
-        labelDescription.setWrapText(true); // important si le texte est un peu long
+        labelDescription.setWrapText(true);
         labelDescription.setTextFill(Color.GRAY);
 
         Label labelPrix = new Label(String.format("%.2f TND ", hebergement.getPricePerNight()));
@@ -161,25 +160,25 @@ public class ClientAcc {
             star.setStyle("-fx-text-fill: gold; -fx-font-size: 14px;");
             starsBox.getChildren().add(star);
         }
+    // favoris
 
-        // Charger les deux images
         Image imgHeartEmpty = new Image(getClass().getResource("/com/example/hotels/images/heart_empty.png").toExternalForm());
         Image imgHeartFull = new Image(getClass().getResource("/com/example/hotels/images/heart_full.png").toExternalForm());
 
 
-// Créer un ImageView pour afficher l'image actuelle
+
         ImageView heartView = new ImageView(imgHeartEmpty);
         heartView.setFitWidth(24);
         heartView.setFitHeight(24);
 
-// Créer le bouton sans background
+
         Button btnFavori = new Button();
         btnFavori.setGraphic(heartView);
         btnFavori.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
 
         final boolean[] isFavori = {false}; // état favori
 
-// Action : changer l'icône
+
         btnFavori.setOnAction(e -> {
             isFavori[0] = !isFavori[0];
             if (isFavori[0]) {
@@ -189,7 +188,7 @@ public class ClientAcc {
             }
         });
 
-
+    //res
 
         Button btnReserver = new Button("Réserver");
         btnReserver.setStyle("-fx-background-color: #588b8b; -fx-text-fill: white; -fx-background-radius: 5;");
@@ -198,11 +197,11 @@ public class ClientAcc {
         btnReserver.setOnAction(event -> openReservation(hebergement, event));
 
 
-// Conteneur bouton
+
         HBox btnContainer = new HBox(btnReserver);
         btnContainer.setAlignment(Pos.BOTTOM_RIGHT);
         btnContainer.setPadding(new Insets(0, 5, 5, 0));
-// ATTENTION: pas de setVisible(false) sur btnContainer !
+
 
 // Survol
         carte.setOnMouseEntered(e -> {
@@ -216,7 +215,7 @@ public class ClientAcc {
                     + "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);");
         });
 
-// Ajouter les enfants
+
         carte.getChildren().addAll(imageView, labelTitre, labelDescription, labelPrix, starsBox, btnFavori, btnContainer);
 
 
@@ -228,13 +227,6 @@ public class ClientAcc {
             }
         });
 
-
-
-
-        // Effet au survol de la souris
-       /* carte.setOnMouseEntered(e -> carte.setStyle("-fx-background-color: #f1f1f1; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);"));
-        carte.setOnMouseExited(e -> carte.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);"));
-*/
         return carte;
     }
 
@@ -242,23 +234,18 @@ public class ClientAcc {
 
     private void openHotelInfo(Hebergement hebergement) {
         try {
-            // Charger le fichier FXML de la scène hotel_info
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/hotel_info_client.fxml"));
             Parent root = loader.load();
 
-            // Récupérer le contrôleur de hotel_info
             HotelInfoClient hotelInfoController = loader.getController();
 
-            // Passer les données de l'hébergement au contrôleur
             hotelInfoController.setHebergementDetails(hebergement);
 
-            // Obtenir la scène actuelle et changer le root (la vue)
             Scene currentScene = scrollPane.getScene();
             currentScene.setRoot(root);  // Remplacer le contenu de la scène avec la nouvelle vue
 
 
 
-            // Pas besoin de fermer la fenêtre actuelle, car on remplace juste son contenu
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -268,23 +255,23 @@ public class ClientAcc {
 
     private void openReservation(Hebergement hebergement, ActionEvent event) {
         try {
-            // Charger le fichier FXML
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/reservationclient.fxml"));
             Parent root = loader.load();
 
-            // Récupérer le stage de la scène actuelle
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            // Récupérer le contrôleur du fichier FXML
+
             ReservationClient controller = loader.getController();
 
-            // Passer les données de l'hébergement au contrôleur
+
             controller.setHebergementData(hebergement);
 
-            // Changer la scène dans le stage actuel
-            Scene newScene = new Scene(root); // Créer la nouvelle scène
-            stage.setScene(newScene); // Appliquer la nouvelle scène au stage actuel
-            stage.show(); // Afficher le stage avec la nouvelle scène
+
+            Scene newScene = new Scene(root);
+            stage.setScene(newScene);
+            stage.show();
 
         } catch (IOException ex) {
             ex.printStackTrace();

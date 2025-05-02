@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -46,7 +47,7 @@ public class HotelInfo {
     public void retournerAccueil() {
         try {
             // Charger la vue accommodation
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/accommodation.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/agency_acc.fxml"));
             Parent root = loader.load();
 
             // Obtenir la scène depuis le bouton
@@ -65,7 +66,7 @@ public class HotelInfo {
     public void retournerAdmin() {
         try {
             // Charger la vue accommodation
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/accadmin.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/admin_acc.fxml"));
             Parent root = loader.load();
 
             // Obtenir la scène depuis le bouton
@@ -84,7 +85,7 @@ public class HotelInfo {
     public void retournerClient() {
         try {
             // Charger la vue accommodation
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/clien_acc.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotels/fxml/client_acc.fxml"));
             Parent root = loader.load();
 
             // Obtenir la scène depuis le bouton
@@ -161,7 +162,9 @@ public class HotelInfo {
                         root.setPadding(new Insets(10));
                         Scene scene = new Scene(root);
                         stage.setScene(scene);
+                        stage.initModality(Modality.APPLICATION_MODAL);
                         stage.show();
+
                     });
 
                     albuminfoo.getChildren().add(imageView);
